@@ -95,6 +95,14 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.lhw</groupId>
+            <artifactId>hwapi-clinet-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>

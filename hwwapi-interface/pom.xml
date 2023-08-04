@@ -40,7 +40,6 @@
             <groupId>com.lhw</groupId>
             <artifactId>hwapi-clinet-sdk</artifactId>
             <version>0.0.1</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
