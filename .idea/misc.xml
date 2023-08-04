@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/hwwapi-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/hwapi-clinet-sdk/pom.xml" />
       </list>
     </option>
   </component>

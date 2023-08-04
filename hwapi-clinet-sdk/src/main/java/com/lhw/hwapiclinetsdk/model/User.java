@@ -1,4 +1,4 @@
-package com.lhw.hwwapiinterface.model;
+package com.lhw.hwapiclinetsdk.model;
 
 import lombok.Data;
 

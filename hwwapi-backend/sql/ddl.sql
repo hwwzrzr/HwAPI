@@ -2,7 +2,7 @@
 create database if not exists yuapi;
 
 -- 切换库
-use yuapi;
+use api_db;
 
 -- 用户表
 create table if not exists user
@@ -13,6 +13,8 @@ create table if not exists user
     userAvatar   varchar(1024)                          null comment '用户头像',
     gender       tinyint                                null comment '性别',
     userRole     varchar(256) default 'user'            not null comment '用户角色：user / admin',
+    `accessKey`  varchar (512)  not null comment 'accessKey',
+    `secretKey`  varchar (512) not null comment 'secretKey',
     userPassword varchar(512)                           not null comment '密码',
     createTime   datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
     updateTime   datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
