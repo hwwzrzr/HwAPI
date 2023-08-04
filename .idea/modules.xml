@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/hwapi-common/hwapi-common.iml" filepath="$PROJECT_DIR$/hwapi-common/hwapi-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/hwwAPI.iml" filepath="$PROJECT_DIR$/hwwAPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/hwwapi-backend/hwwapi-backend.iml" filepath="$PROJECT_DIR$/hwwapi-backend/hwwapi-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hwwapi-interface/hwwapi-interface.iml" filepath="$PROJECT_DIR$/hwwapi-interface/hwwapi-interface.iml" />
     </modules>
   </component>
 </project>

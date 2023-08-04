@@ -4,8 +4,8 @@ use yuapi;
 create table if not exists yuapi.`interface_info`
 (
     `id` bigint not null auto_increment comment '主键' primary key,
-    `name` varchar(256) not null comment '名称',
-    `description` varchar(256) null comment '描述',
+    `name` varchar(256) not null comment '接口名称',
+    `description` varchar(256) null comment '接口描述',
     `url` varchar(512) not null comment '接口地址',
     `requestHeader` text null comment '请求头',
     `responseHeader` text null comment '响应头',

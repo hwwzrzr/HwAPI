@@ -7,18 +7,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="hwapi-common" />
+        <module name="hwwapi-interface" />
         <module name="hwwapi-backend" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="hwapi-common" target="1.8" />
       <module name="hwwAPI" target="1.8" />
       <module name="hwwapi-backend" target="1.8" />
+      <module name="hwwapi-interface" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hwapi-common" options="-parameters" />
       <module name="hwwAPI" options="-parameters" />
       <module name="hwwapi-backend" options="-parameters" />
+      <module name="hwwapi-interface" options="-parameters" />
     </option>
   </component>
 </project>

@@ -18,11 +18,11 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.niuma</groupId>-->
-<!--            <artifactId>binapi-common</artifactId>-->
-<!--            <version>0.0.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.lhw</groupId>
+            <artifactId>hwapi-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
