@@ -6,6 +6,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/hwwapi-interface/pom.xml" />
         <option value="$PROJECT_DIR$/hwapi-clinet-sdk/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud-gateway-gateway9527/pom.xml" />
       </list>
     </option>
   </component>

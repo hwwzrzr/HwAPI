@@ -11,9 +11,11 @@
         <module name="hwwapi-backend" />
         <module name="hwapi-common" />
         <module name="hwwapi-interface" />
+        <module name="cloud-gateway-gateway9527" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cloud-gateway-gateway9527" target="1.8" />
       <module name="hwapi-clinet-sdk" target="1.8" />
       <module name="hwapi-common" target="1.8" />
       <module name="hwwAPI" target="1.8" />
@@ -23,6 +25,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cloud-gateway-gateway9527" options="-parameters" />
       <module name="hwapi-clinet-sdk" options="-parameters" />
       <module name="hwapi-common" options="-parameters" />
       <module name="hwwAPI" options="-parameters" />

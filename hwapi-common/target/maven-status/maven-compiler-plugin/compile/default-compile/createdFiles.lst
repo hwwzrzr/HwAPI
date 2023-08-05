@@ -1,10 +1,14 @@
 com\lhw\hwapicommon\model\entity\User.class
 com\lhw\hwapicommon\model\enums\PostGenderEnum.class
-com\lhw\hwapicommon\service\PostService.class
+com\lhw\hwapicommon\service\InnerUserService.class
+com\lhw\hwapicommon\enums\InterfaceInfoStatusEnum.class
+com\lhw\hwapicommon\model\entity\UserInterfaceInfo.class
+com\lhw\hwapicommon\enums\PostReviewStatusEnum.class
+com\lhw\hwapicommon\service\InnerUserInterfaceInfoService.class
+com\lhw\hwapicommon\service\InnerInterfaceInfoService.class
 com\lhw\hwapicommon\model\enums\PostReviewStatusEnum.class
 com\lhw\hwapicommon\model\vo\PostVO.class
 com\lhw\hwapicommon\model\entity\Post.class
 com\lhw\hwapicommon\model\vo\UserVO.class
-com\lhw\hwapicommon\service\InterfaceInfoService.class
+com\lhw\hwapicommon\enums\PostGenderEnum.class
 com\lhw\hwapicommon\model\entity\InterfaceInfo.class
-com\lhw\hwapicommon\service\UserService.class

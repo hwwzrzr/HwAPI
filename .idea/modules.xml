@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/cloud-gateway-gateway9527/cloud-gateway-gateway9527.iml" filepath="$PROJECT_DIR$/cloud-gateway-gateway9527/cloud-gateway-gateway9527.iml" />
       <module fileurl="file://$PROJECT_DIR$/hwapi-clinet-sdk/hwapi-clinet-sdk.iml" filepath="$PROJECT_DIR$/hwapi-clinet-sdk/hwapi-clinet-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/hwapi-common/hwapi-common.iml" filepath="$PROJECT_DIR$/hwapi-common/hwapi-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/hwwAPI.iml" filepath="$PROJECT_DIR$/hwwAPI.iml" />

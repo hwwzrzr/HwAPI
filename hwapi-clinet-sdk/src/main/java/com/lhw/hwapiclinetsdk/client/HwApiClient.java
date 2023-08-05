@@ -22,7 +22,7 @@ public class HwApiClient {
     private String accessKey;
     private String secretKey;
 
-    private static final String GATEWAY_HOST = "http://localhost:8123";
+    private static final String GATEWAY_HOST = "http://localhost:9527";
 
     public HwApiClient(String accessKey, String secretKey){
         this.accessKey = accessKey;

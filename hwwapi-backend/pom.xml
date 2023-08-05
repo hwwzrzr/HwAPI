@@ -94,6 +94,12 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://doc.xiaominfo.com/knife4j/documentation/get_start.html-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
 
         <dependency>
             <groupId>com.lhw</groupId>
