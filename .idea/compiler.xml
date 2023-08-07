@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="hwapi-clinet-sdk" />
         <module name="hwwapi-backend" />
+        <module name="hwapi-order" />
         <module name="hwapi-common" />
         <module name="hwwapi-interface" />
         <module name="cloud-gateway-gateway9527" />
@@ -18,6 +19,7 @@
       <module name="cloud-gateway-gateway9527" target="1.8" />
       <module name="hwapi-clinet-sdk" target="1.8" />
       <module name="hwapi-common" target="1.8" />
+      <module name="hwapi-order" target="1.8" />
       <module name="hwwAPI" target="1.8" />
       <module name="hwwapi-backend" target="1.8" />
       <module name="hwwapi-interface" target="1.8" />
@@ -28,6 +30,7 @@
       <module name="cloud-gateway-gateway9527" options="-parameters" />
       <module name="hwapi-clinet-sdk" options="-parameters" />
       <module name="hwapi-common" options="-parameters" />
+      <module name="hwapi-order" options="-parameters" />
       <module name="hwwAPI" options="-parameters" />
       <module name="hwwapi-backend" options="-parameters" />
       <module name="hwwapi-interface" options="-parameters" />
