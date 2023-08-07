@@ -37,3 +37,13 @@ hwapi:
   client:
     secret-key: liyue
     access-key: liyue
+
+dubbo:
+  application:
+    name: dubbo-backend-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://localhost:8848

@@ -1,7 +1,13 @@
 package com.lhw.cloudgatewaygateway9527.globalfilter;
 
 import com.lhw.hwapiclinetsdk.utils.SignUtils;
+import com.lhw.hwapicommon.model.entity.InterfaceInfo;
+import com.lhw.hwapicommon.model.entity.User;
+import com.lhw.hwapicommon.service.InnerInterfaceInfoService;
+import com.lhw.hwapicommon.service.InnerUserInterfaceInfoService;
+import com.lhw.hwapicommon.service.InnerUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -10,6 +16,7 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -18,7 +25,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,17 +36,31 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class CustomGlobalFilter1 implements GlobalFilter, Ordered {
+public class CustomGlobalFilter implements GlobalFilter, Ordered {
+
 
     private static final List<String> IP_WHITE_LIST = Arrays.asList("127.0.0.1");
+
+    @DubboReference
+    private InnerUserService innerUserService;
+
+    @DubboReference
+    private InnerInterfaceInfoService innerInterfaceInfoService;
+
+    @DubboReference
+    private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
+
+    private static final String INTERFACE_HOST = "http://localhost:8123";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 1. 请求日志
         ServerHttpRequest request = exchange.getRequest();
         log.info("请求唯一标识：" + request.getId());
-        log.info("请求路径：" + request.getPath().value());
-        log.info("请求方法：" + request.getMethod());
+        String path = INTERFACE_HOST + request.getPath().value();
+        log.info("请求路径：" + path);
+        String method = request.getMethod().toString();
+        log.info("请求方法：" + method);
         log.info("请求参数：" + request.getQueryParams());
         String sourceAddress = request.getLocalAddress().getHostString();
         log.info("请求来源地址：" + sourceAddress);
@@ -60,8 +80,14 @@ public class CustomGlobalFilter1 implements GlobalFilter, Ordered {
         String timestamp = headers.getFirst("timestamp");
         String sign = headers.getFirst("sign");
         String body = headers.getFirst("body");
-        // todo 实际情况应该是去数据库中查是否已分配给用户
-        if (!"liyue".equals(accessKey)) {
+        // 实际情况应该是去数据库中查是否已分配给用户
+        User invokeUser = null;
+        try {
+            invokeUser = innerUserService.getInvokeUser(accessKey);
+        } catch (Exception e) {
+            log.error("getInvokeUser error", e);
+        }
+        if (invokeUser == null) {
             return handleNoAuth(response);
         }
         if (Long.parseLong(nonce) > 10000L) {
@@ -73,22 +99,32 @@ public class CustomGlobalFilter1 implements GlobalFilter, Ordered {
         if ((currentTime - Long.parseLong(timestamp)) >= FIVE_MINUTES) {
             return handleNoAuth(response);
         }
-        // todo 实际情况secretKey要求数据库中查询
+        //实际情况secretKey要求数据库中查询
+        String secretKey = invokeUser.getSecretKey();
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("accessKey", accessKey);
         hashMap.put("nonce", nonce);
         hashMap.put("body", body);
         hashMap.put("timestamp", timestamp);
-        String serverSign = SignUtils.genSign(hashMap.toString(), "liyue");
-        if(!sign.equals(serverSign)){
+        String serverSign = SignUtils.genSign(hashMap.toString(), secretKey);
+        if(sign == null || !sign.equals(serverSign)){
             return handleNoAuth(response);
         }
         // 4. 请求的模拟接口是否存在？
-        // todo 从数据库中查询模拟接口是否存在，以及请求方法是否匹配（还可以校验请求参数）
+        //从数据库中查询模拟接口是否存在，以及请求方法是否匹配（还可以校验请求参数）
+        InterfaceInfo interfaceInfo = null;
+        try {
+            interfaceInfo = innerInterfaceInfoService.getInterfaceInfo(path, method);
+        } catch (Exception e) {
+            log.error("getInterfaceInfo error", e);
+        }
+        if (interfaceInfo == null) {
+            return handleNoAuth(response);
+        }
         // 5. 请求转发，调用模拟接口
 //        Mono<Void> filter = chain.filter(exchange);
         // 6. 响应日志
-        return handleResponse(exchange, chain);
+        return handleResponse(exchange, chain,interfaceInfo.getId(), invokeUser.getId());
 //        return filter;
     }
 
@@ -99,7 +135,7 @@ public class CustomGlobalFilter1 implements GlobalFilter, Ordered {
      * @param chain
      * @return
      */
-    public Mono<Void> handleResponse(ServerWebExchange exchange, GatewayFilterChain chain) {
+    public Mono<Void> handleResponse(ServerWebExchange exchange, GatewayFilterChain chain, long interfaceInfoId, long userId) {
         try {
             ServerHttpResponse originalResponse = exchange.getResponse();
             // 缓存数据的工厂
@@ -120,6 +156,11 @@ public class CustomGlobalFilter1 implements GlobalFilter, Ordered {
                             return super.writeWith(
                                     fluxBody.map(dataBuffer -> {
                                         // 7. todo 调用成功，接口调用次数 + 1 invokeCount
+                                        try {
+                                            innerUserInterfaceInfoService.invokeCount(interfaceInfoId, userId);
+                                        } catch (Exception e) {
+                                            log.error("invokeCount error", e);
+                                        }
                                         byte[] content = new byte[dataBuffer.readableByteCount()];
                                         dataBuffer.read(content);
                                         DataBufferUtils.release(dataBuffer);//释放掉内存

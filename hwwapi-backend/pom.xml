@@ -102,12 +102,22 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>3.0.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.lhw</groupId>
             <artifactId>hwapi-clinet-sdk</artifactId>
             <version>0.0.1</version>
         </dependency>
-
-
 
     </dependencies>
 
