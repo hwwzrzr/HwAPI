@@ -3,6 +3,8 @@ package com.yupi.project.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lhw.hwapicommon.model.entity.UserInterfaceInfo;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【user_interface_info(用户调用接口关系)】的数据库操作Mapper
@@ -11,6 +13,7 @@ import com.lhw.hwapicommon.model.entity.UserInterfaceInfo;
 */
 public interface UserInterfaceInfoMapper extends BaseMapper<UserInterfaceInfo> {
 
+    List<UserInterfaceInfo> listTopInvokeInterfaceInfo(int limit);
 }
 
 
